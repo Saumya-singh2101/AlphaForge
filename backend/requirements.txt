@@ -12,3 +12,4 @@ groq
 pypdf
 python-multipart
 httpx
+yfinance
