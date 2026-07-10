@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #07090d;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(0, 212, 255, 0.07), transparent 40%),
+    radial-gradient(circle at 85% 100%, rgba(10, 132, 255, 0.06), transparent 45%);
+  color: #e6e6e6;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0e14; }
+::-webkit-scrollbar-thumb { background: #1c2530; border-radius: 4px; }
+
+.font-display { font-family: 'Space Grotesk', sans-serif; }
+
+.glass {
+  background: rgba(15, 20, 25, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(28, 37, 48, 0.8);
+}
+
+.glow-cyan { box-shadow: 0 0 20px rgba(0, 212, 255, 0.15); }
+
+.card-hover {
+  transition: all 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.12);
+}
+
+/* ---------- Signature element: live ticker tape ---------- */
+.ticker-tape {
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid #1c2530;
+  background: linear-gradient(90deg, #0a0e14, #0f1419, #0a0e14);
+}
+.ticker-tape-track {
+  display: inline-flex;
+  animation: ticker-scroll 38s linear infinite;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  border-right: 1px solid #1c2530;
+}
+.ticker-up { color: #00ff9d; }
+.ticker-down { color: #ff5d6c; }
+
+/* ---------- Pulse dot for "live" status ---------- */
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00ff9d;
+  box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.6);
+  animation: pulse-dot 1.8s infinite;
+}
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(0, 255, 157, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+}
+
+/* ---------- Rating / sentiment pills ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.pill-buy { background: rgba(0, 255, 157, 0.12); color: #00ff9d; border: 1px solid rgba(0, 255, 157, 0.3); }
+.pill-sell { background: rgba(255, 93, 108, 0.12); color: #ff5d6c; border: 1px solid rgba(255, 93, 108, 0.3); }
+.pill-hold { background: rgba(255, 200, 87, 0.12); color: #ffc857; border: 1px solid rgba(255, 200, 87, 0.3); }
+
+.report-markdown h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00d4ff;
+  margin: 1.75rem 0 1rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.report-markdown h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e6e6e6;
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #1c2530;
+  font-family: 'JetBrains Mono', monospace;
+}
+.report-markdown h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00d4ff;
+  margin: 1.25rem 0 0.5rem;
+}
+.report-markdown p {
+  margin: 0.6rem 0;
+  color: #c7ccd1;
+}
+.report-markdown strong {
+  color: #00ff9d;
+  font-weight: 700;
+}
+.report-markdown ul, .report-markdown ol {
+  margin: 0.5rem 0 0.5rem 1.25rem;
+  color: #c7ccd1;
+}
+.report-markdown li {
+  margin: 0.3rem 0;
+}
+.report-markdown table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.report-markdown th, .report-markdown td {
+  border: 1px solid #1c2530;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.report-markdown th {
+  background: #0f1419;
+  color: #00d4ff;
+  font-family: 'JetBrains Mono', monospace;
+}
+.report-markdown hr {
+  border-color: #1c2530;
+  margin: 1.5rem 0;
+}
+
+/* ---------- Print / PDF export ---------- */
+@media print {
+  body {
+    background: white !important;
+  }
+  nav, .ticker-tape, .print\:hidden {
+    display: none !important;
+  }
+  #report-document {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .report-markdown h1, .report-markdown h2, .report-markdown h3 {
+    color: #111 !important;
+    border-color: #ccc !important;
+    page-break-after: avoid;
+  }
+  .report-markdown p, .report-markdown li {
+    color: #222 !important;
+  }
+  .report-markdown strong {
+    color: #000 !important;
+  }
+  .report-markdown table {
+    page-break-inside: avoid;
+  }
+  .break-inside-avoid {
+    page-break-inside: avoid;
+  }
+  @page {
+    margin: 1.5cm;
+  }
+}
